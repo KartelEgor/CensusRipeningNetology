@@ -16,11 +16,14 @@ public class Main {
                     Education.values()[new Random().nextInt(Education.values().length)])
             );
         }
+
+        //--------------------------Кол-во совершеннолетних------------------------------------
         long adultCount = persons.stream()
                 .filter(x -> x.getAge() > 18)
                 .count();
         System.out.println(adultCount);
 
+        //--------------------------Призывники-------------------------------------------------
         List<String> conscript = persons.stream()
                 .filter(x -> x.getSex().equals(Sex.MAN))
                 .filter(x -> x.getAge() >= 18 && x.getAge() <= 27)
@@ -28,16 +31,14 @@ public class Main {
                 .collect(Collectors.toList());
         System.out.println(conscript);
 
+        //---------------------------Работоспособные-------------------------------------------
         List<String> workable = persons.stream()
                 .filter(x -> x.getSex().equals(Sex.MAN) && x.getAge() >= 18 && x.getAge() < 65
                         || x.getSex().equals(Sex.WOMAN) && x.getAge() >= 18 && x.getAge() < 60)
                 .sorted(Comparator.comparing(Person::getFamily))
                 .map(Person::getFamily)
                 .collect(Collectors.toList());
-
         System.out.println(workable);
-
-
 
     }
 }
